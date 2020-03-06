@@ -13,14 +13,11 @@ export default function SelectAnswers() {
 	function AnswerSelector(idx) {
 		const update = score => updateAnswer(idx, score);
 
-		const onChange = event => {
-			console.dir(event);
-			console.dir(event.target);
-			update(parseInt(event.target.value));
-		}
+		const onChange = event => update(parseInt(event.target.value));
 
 		return (
-			<div id={idx} key={idx}> {idx + 1}: 
+			<tr><td align='right'>{idx + 1}: </td><td>
+			<div id={idx} key={idx}> 
 					{
 						[1,2,3,4,5].map(val => (
 							<>
@@ -37,6 +34,7 @@ export default function SelectAnswers() {
 						))
 					}
 				</div>
+			</td></tr>
 		);
 	}
 
@@ -45,13 +43,11 @@ export default function SelectAnswers() {
 			const res = BFI.scoreBFI(answers);
 			setBfi(res);
 		} else {
-			console.log(answers.length);
-			console.log(answers);
+			console.log('INVALID ANSWERS', answers);
 		}
 	}
 
 	const questions = [...Array(44).keys()];
-	console.log(questions);
 
 	return (
 		<>
@@ -68,11 +64,13 @@ export default function SelectAnswers() {
 				</table>
 			</div>
 			<div id='questions'>
+				<table>
 				{
 					questions.map(q => (
 						AnswerSelector(q)
 					))
 				}
+				</table>
 			</div>
 		</>
 	)
